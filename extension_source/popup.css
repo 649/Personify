@@ -1,0 +1,30 @@
+:root{--bg:#071827;--card:#0b1220;--accent:#7dd3fc;--text:#e6eef8;--muted:#98a3b3}
+*{box-sizing:border-box;font-family:Inter,Segoe UI,Roboto,system-ui,Arial,sans-serif}
+body{margin:0;padding:12px;width:420px;background:linear-gradient(180deg,#071021,#071827);color:var(--text)}
+.container{background:linear-gradient(180deg,var(--card),#071827);border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+header{display:flex;align-items:center;justify-content:space-between}
+h1{font-size:15px;margin:0}
+.header-controls{display:flex;gap:8px;align-items:center}
+.tabs{display:flex;gap:6px;margin-top:10px}
+.tab{flex:0 0 auto;padding:6px 8px;border-radius:6px;background:transparent;border:1px solid rgba(125,211,252,0.08);color:var(--muted);cursor:pointer}
+.tab.active{background:rgba(125,211,252,0.06);color:var(--accent)}
+.controls{margin-top:10px;display:flex;gap:8px}
+button{background:transparent;border:1px solid rgba(125,211,252,0.12);color:var(--accent);padding:8px 10px;border-radius:6px;cursor:pointer}
+#status{margin-top:8px;font-size:12px;color:var(--muted)}
+.chatwindow{margin-top:10px;border-radius:6px;padding:10px;background:rgba(255,255,255,0.02);min-height:140px;max-height:240px;overflow:auto;white-space:pre-wrap;color:var(--text)}
+.chat-input-row{display:flex;gap:6px;margin-top:8px}
+.chat-input-row input{flex:1;padding:8px;border-radius:6px;border:1px solid rgba(125,211,252,0.08);background:transparent;color:var(--text)}
+.transcript{margin-top:8px;background:#02101a;padding:8px;border-radius:6px;max-height:300px;overflow:auto;color:var(--muted);font-size:13px}
+.chat-line { margin: 6px 0; font-family: system-ui, Arial, sans-serif; }
+.chat-label { font-weight: 700; margin-right: 6px; }
+.chat-line.user .chat-label { color: #d9534f; }   /* red for You */
+.chat-line.assistant .chat-label { color: #2ca84f; } /* green for AI */
+.chat-text { color: #111; } /* message color (adjust if needed) */
+.chat-text { white-space: normal; }
+.chat-text pre { background:#f6f8fa; padding:8px; border-radius:6px; overflow:auto; }
+.chat-text code { background:#f3f4f6; padding:2px 4px; border-radius:4px; font-family: monospace; }
+.chat-text a { color: #1a73e8; text-decoration: none; }
+.chat-text a:hover { text-decoration: underline; }
+.chat-text ul, .chat-text ol { margin: 6px 0 12px 20px; }
+header { position: relative; min-height:48px; }
+#personaAvatar { box-shadow: 0 1px 3px rgba(0,0,0,0.15); }

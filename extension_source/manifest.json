@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Personify",
+  "version": "1.2",
+  "description": "Use AI characters to create unique, insightful summaries of any page. Works with your favorite OpenAI-compatible API.",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

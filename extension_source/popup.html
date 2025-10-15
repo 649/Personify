@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Personify</title>
+<link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+  <div class="container">
+    <header style="position:relative;padding-bottom:10px">
+    <h1 id="header-title">Personify</h1>
+    <div class="header-controls">
+        <a id="optionsLink" title="Options">⚙️</a>
+    </div>
+    </header>
+    <div class="tabs">
+      <button class="tab active" data-tab="chat">Chat</button>
+      <button class="tab" data-tab="transcript">Transcript</button>
+      <button id="summarizeButton">Summarize Page</button>
+    </div>
+
+    <div id="tab-chat" class="tabpane">
+      <div class="controls">
+        <button id="askStartButton">Ask (start chat)</button>
+      </div>
+      <div id="status" class="muted">Ready</div>
+      <div id="chatWindow" class="chatwindow" role="log" aria-live="polite"></div>
+
+      <div id="chatInputRow" class="chat-input-row" style="display:none">
+        <input id="userInput" placeholder="Ask a follow-up question..." />
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+
+    <div id="tab-transcript" class="tabpane" style="display:none">
+      <h3>Last payload sent</h3>
+      <div id="transcript" class="transcript"></div>
+    </div>
+  </div>
+
+<script src="popup.js"></script>
+</body>
+</html>
