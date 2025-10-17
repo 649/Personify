@@ -45,6 +45,7 @@ Here's a quick look at how Personify works:
    ![Character Selection](store_pics/4.png)
    ![Manage Persona](store_pics/5.png)
    ![Server Settings](store_pics/6.png)
+   ![Import Settings](store_pics/7.png)
 
 ## Credits
 
