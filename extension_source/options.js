@@ -288,16 +288,104 @@ async function deletePersona(id){
   chrome.storage.sync.get({ activePersonaId: null }, (it)=> {
     if (it.activePersonaId === id) chrome.storage.sync.set({ activePersonaId: '__default' });
   });
+  if (id === activeSelect.value){ setActivePersona('__default'); }
 }
 
+// set action icon from data URL (tries imageData path first)
+async function setExtensionIconFromDataUrl(dataUrl){
+  if (!dataUrl) return;
+  try {
+    // Prefer imageData form (supported by chrome.action.setIcon)
+    const variants = await makeIconImageDataVariants(dataUrl);
+    chrome.action.setIcon({ imageData: variants }, ()=> { if (chrome.runtime.lastError) console.warn(chrome.runtime.lastError); });
+  } catch (e){
+    // fallback: write temporary file approach is not available from options page,
+    // so as a last resort try setIcon with path if you have a blob URL (rare).
+    console.error('Failed to set icon from dataUrl', e);
+  }
+}
+
+function makeIconImageDataVariants(dataUrl, sizes = [16,32,48,128]){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const result = {};
+      for (const s of sizes){
+        const c = document.createElement('canvas');
+        c.width = s; c.height = s;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, s, s);
+        result[s] = ctx.getImageData(0,0,s,s);
+      }
+      resolve(result);
+    };
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
+}
+
+async function applyPersonaIconById(id){
+  // restore manifest default icons
+  const restoreDefault = () => {
+    const url = chrome.runtime.getURL("icon.png");
+    makeIconImageDataVariants(url).then((variants) => {
+      chrome.action.setIcon({ imageData: variants }, ()=> { if (chrome.runtime.lastError) console.warn(chrome.runtime.lastError); });
+    });
+  };
+
+  if (!id || id === '__default'){
+    restoreDefault();
+    return;
+  }
+
+  const p = personas.find(x => x.id === id);
+  if (!p){
+    restoreDefault();
+    return;
+  }
+
+  if (p._imageData){
+    try {
+      await setExtensionIconFromDataUrl(p._imageData);
+      return;
+    } catch (e){
+      console.error('set icon from memory failed', e);
+    }
+  }
+
+  if (p.image){
+    try {
+      const res = await getLocal(p.image);
+      if (res && res[p.image]){
+        p._imageData = res[p.image];
+        await setExtensionIconFromDataUrl(res[p.image]);
+        return;
+      }
+    } catch (e){
+      console.error('load local image failed', e);
+    }
+  }
+
+  // no image available — restore default
+  restoreDefault();
+}
+
+
 function setActivePersona(id){
-  chrome.storage.sync.set({ activePersonaId: id }, ()=>{ msg.textContent='Active persona set'; setTimeout(()=>msg.textContent='',1200); renderActiveSelect(); });
+  chrome.storage.sync.set({ activePersonaId: id }, ()=>{ 
+    msg.textContent='Active persona set'; 
+    setTimeout(()=>msg.textContent='',1200); 
+    renderActiveSelect();
+    try { applyPersonaIconById(id); } catch(e){ console.error(e); }
+  });
 }
 
 activeSelect.addEventListener('change', ()=> {
-  chrome.storage.sync.set({ activePersonaId: activeSelect.value || '__default' }, () => {
+  const id = activeSelect.value || '__default';
+  chrome.storage.sync.set({ activePersonaId: id }, () => {
     msg.textContent = 'Active persona saved';
     setTimeout(()=>msg.textContent='',1200);
+    try { applyPersonaIconById(id); } catch(e){ console.error(e); }
   });
 });
 
