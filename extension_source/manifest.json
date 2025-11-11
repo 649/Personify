@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Personify",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Use AI characters to create unique, insightful summaries of any page. Works with your favorite OpenAI-compatible API.",
   "permissions": [
     "scripting",

@@ -377,6 +377,12 @@ function setActivePersona(id){
     setTimeout(()=>msg.textContent='',1200); 
     renderActiveSelect();
     try { applyPersonaIconById(id); } catch(e){ console.error(e); }
+    const p = personas.find(x => x.id === id);
+    if (!p || p.id === '__default'){
+      chrome.action.setTitle({ title: "Personify" });
+    }else{
+      chrome.action.setTitle({ title: p.name });
+    }
   });
 }
 
@@ -386,6 +392,12 @@ activeSelect.addEventListener('change', ()=> {
     msg.textContent = 'Active persona saved';
     setTimeout(()=>msg.textContent='',1200);
     try { applyPersonaIconById(id); } catch(e){ console.error(e); }
+    const p = personas.find(x => x.id === id);
+    if (!p || p.id === '__default'){
+      chrome.action.setTitle({ title: "Personify" });
+    }else{
+      chrome.action.setTitle({ title: p.name });
+    }
   });
 });
 
