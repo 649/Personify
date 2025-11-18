@@ -19,7 +19,7 @@ button{background:transparent;border:1px solid rgba(125,211,252,0.12);color:var(
 .chat-label { font-weight: 700; margin-right: 6px; }
 .chat-line.user .chat-label { color: #d9534f; }   /* red for You */
 .chat-line.assistant .chat-label { color: #2ca84f; } /* green for AI */
-.chat-text { color: #111; } /* message color (adjust if needed) */
+.chat-text { color: #ffffff; } /* message color (adjust if needed) */
 .chat-text { white-space: normal; }
 .chat-text pre { background:#f6f8fa; padding:8px; border-radius:6px; overflow:auto; }
 .chat-text code { background:#f3f4f6; padding:2px 4px; border-radius:4px; font-family: monospace; }
